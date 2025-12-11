@@ -1,8 +1,9 @@
 --- 
+layout: ../../layaouts/MarkdownPostLayout.astro
 title: 'Mi primer publicacion en el blog'
 pubDate: 2025-12-09
 description: 'Esta es la primera publicación en mi blog Astro.'
-aouthor: 'Yo, ¿Cómo vez?'
+author: 'Yo, ¿Cómo vez?'
 image: 
      url: 'https://docs.astro.build/assets/rose.webp'
      alt: 'El logo sobre un fondo oscuro.'

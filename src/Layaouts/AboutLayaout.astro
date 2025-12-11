@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import Footer from '../pages/components/footer.astro';
+import Header from '../pages/components/Header.astro';
+const {pageTitle} = Astro.props;
+
+
+const identity = {
+    firstName: "Sarah",
+    country: "Canada",
+    occupation: "Escritor técnico",
+    hobbies: ["fotografia", "observación de gente caminando", "preñador"],
+};
+
+const skills = [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Astro",
+    "Redacción de documentos",
+];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+const skillcolor = "Green";
+const fontWeight = "Bold";
+const textCase = "uppercase";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{pageTitle}</title>
+        <style define:vars={{ skillcolor, fontWeight, textCase }}>
+          
+        </style>
+    </head>
+
+    <body>
+        <Header/>
+        <h1>Mi sitio astro</h1>
+        <h1>Estoy trabajando.</h1>
+        <h2>...en mi nuevo sitio en astro</h2>
+        <p>Estoy trabajando en el tutorial de Astro esta es la segunda parte</p>
+
+        {happy && <p> Estoy muy feliz de aprender Astro</p>}
+        {finished && <p> He terminado mi sitio web</p>}
+        {
+            goal === 3 ? (
+                <p>mi objetivo es terminar en 3 dias</p>
+            ) : (
+                <p>Mi objetivo no son 3 dias</p>
+            )
+        }
+
+        <p>
+            Este sitio ser ira actualizando conforme vaya avanzando en el
+            tutorial
+        </p>
+        <p>Algunos datos sobre mi</p>
+        <ul>
+            <li class="skill">Me llamo {identity.firstName}</li>
+            <li class="skill">
+                Vivo en {identity.country} y trabajo como {identity.occupation}.
+            </li>
+            {
+                identity.hobbies.length >= 2 && (
+                    <li class="skill">
+                        dos de mis aficiones incluyen: {identity.hobbies[0]} y{" "}
+                        {identity.hobbies[1]}
+                    </li>
+                )
+            }
+        </ul>
+        <p>Mis habilidades son:</p>
+        {skills.map((skill) => <li>{skill}</li>)}
+        <Footer/>
+    </body>
+</html>

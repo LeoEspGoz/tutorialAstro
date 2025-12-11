@@ -1,0 +1,10 @@
+---
+const { frontmatter } = Astro.props;
+---
+<meta charset="utf-8" />
+<h1>{frontmatter.title}</h1>
+<img src={frontmatter.image} alt="Gay" width="400px" height="300px">
+<p>Written by {frontmatter.author}</p>
+<p>Publicado el: {frontmatter.pubDate.toString().slice(0,10)}</p>
+<p>Descripción {frontmatter.description}</p>
+<slot />

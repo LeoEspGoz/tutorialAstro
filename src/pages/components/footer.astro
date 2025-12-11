@@ -1,0 +1,20 @@
+---
+import Social from '../components/Social.astro';
+const platform = "github";
+const username = "withastro";
+const platform2 = "YouTube";
+const username2 = "Donald Trump";
+---
+<style>
+  footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
+
+<footer>
+  <Social platform="twitter" username="amlo" />
+  <Social platform="github" username="withastro" />
+  <Social platform="youtube" username="donald trump" />
+</footer>
