@@ -3,6 +3,7 @@ layout: ../../layaouts/MarkdownPostLayout.astro
 title: 'Mi primer publicacion en el blog'
 description: 'Esta es la primera publicación en mi blog Astro.'
 author: 'Yo, ¿Cómo vez?'
+pubDate: 2022-12-11
 image: 
      url: 'https://docs.astro.build/assets/rose.webp'
      alt: 'El logo sobre un fondo oscuro.'
