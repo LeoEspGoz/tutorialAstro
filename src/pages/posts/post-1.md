@@ -1,7 +1,6 @@
 --- 
 layout: ../../layaouts/MarkdownPostLayout.astro
 title: 'Mi primer publicacion en el blog'
-pubDate: 2025-12-09
 description: 'Esta es la primera publicación en mi blog Astro.'
 author: 'Yo, ¿Cómo vez?'
 image: 
