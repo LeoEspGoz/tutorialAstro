@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
+layout: ../../Layouts/MarkdownPostLayout.astro
 title: Esta es la tercera publicación en el blog de astro
 author: Yo, ¿Cómo vez?.
 description: "Existieron algunos problemas al momento de crear los archivos pero al final todo funcionó correctamente"
