@@ -1,0 +1,105 @@
+---
+// src/components/BotonPago.astro
+// No necesitas nada en el servidor por ahora.
+---
+
+<div id="checkout-container"></div>
+
+<button id="btn-pagar" class="btn-stripe"> Pagar Ahora </button>
+
+<script>
+    import { loadStripe } from "@stripe/stripe-js";
+
+    const STRIPE_PUBLIC_KEY =
+        "pk_test_51SdcydPL9X01U8DSVCognyGURnGaPlH3LgMxJDIobmLwcERqh7rQEBnACvkdDgnZW7rRJDqTNx47zwMswU8wE7yg00oCYAL0qu";
+
+    const btn = document.getElementById("btn-pagar");
+
+    btn?.addEventListener("click", async () => {
+        const token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MDgwNDgzLCJpYXQiOjE3NjYwMDU4NjUsImp0aSI6ImU2NDI0MzMxZDg1NDQ0MjlhMzZkOWRlNWMwNDU0OGNjIiwidXNlcl9pZCI6IjYwYTZmODA2LTNlOTktNGVjNy1hYTE5LWQzNWMwNzQ4YWY3MiJ9.Xt2-V5RhE6jRHCdPLVB0HaGs3f7anwdrCL-ZHjYSB7U";
+
+        const membershipId = "831b4348-2348-4943-8311-807e9e51664c";
+        const userEmail = "s19120002@alumnos.itsur.edu.mx";
+        const backendUrl =
+            "http://localhost:8100/stripe/create_checkout_session/";
+
+        try {
+            console.log("Cargando Stripe...");
+            const stripe = await loadStripe(STRIPE_PUBLIC_KEY);
+
+            if (!stripe) {
+                throw new Error(
+                    "No se pudo cargar la librería de Stripe. Revisa tu Public Key.",
+                );
+            }
+
+            console.log("Contactando al backend...");
+            const response = await fetch(backendUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    email: userEmail,
+                    details: {
+                        membership_id: membershipId,
+                    },
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.clientSecret) {
+                console.log(
+                    "¡Éxito! Client Secret recibido. Iniciando formulario...",
+                );
+
+                btn.style.display = "none";
+
+                const checkout = await stripe.initEmbeddedCheckout({
+                    clientSecret: data.clientSecret,
+                });
+
+                checkout.mount("#checkout-container");
+            } else {
+                console.error("Error del backend:", data);
+                alert(
+                    "Error: " + (data.error || "No se recibió el clientSecret"),
+                );
+            }
+        } catch (error) {
+            console.error("Error de conexión:", error);
+            alert(
+                "Hubo un error al intentar cargar el pago. Revisa la consola (F12).",
+            );
+        }
+    });
+</script>
+
+<style>
+    .btn-stripe {
+        background-color: #635bff;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.2s;
+        margin-bottom: 20px;
+    }
+
+    .btn-stripe:hover {
+        background-color: #4b45c6;
+    }
+
+    #checkout-container {
+        width: 100%;
+        min-height: 400px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+</style>

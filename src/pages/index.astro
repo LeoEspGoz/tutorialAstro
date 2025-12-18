@@ -1,11 +1,11 @@
 ---
 import "../styles/global.css";
 import BaseLayaout from "../Layouts/BaseLayaout.astro";
-const {pageTitle} = Astro.props;
-
-
+import BotonDePago from "./components/BotonDePago.astro";
+const { pageTitle } = Astro.props;
 ---
 
 <BaseLayaout pageTitle={pageTitle}>
   <h2>Mi impresionante subtítulo del blog</h2>
+  <BotonDePago />
 </BaseLayaout>

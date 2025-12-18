@@ -1,8 +1,11 @@
 ---
-import '../styles/global.css';
-import Footer from '../pages/components/footer.astro';
-import Header from '../pages/components/Header.astro';
-const {pageTitle} = Astro.props;
+import "../styles/global.css";
+import Footer from "../pages/components/footer.astro";
+import Header from "../pages/components/Header.astro";
+const allPosts = Object.values(
+	import.meta.glob("./posts/*.md", { eager: true }),
+);
+const { pageTitle } = Astro.props;
 ---
 
 <html lang="en">
@@ -14,15 +17,19 @@ const {pageTitle} = Astro.props;
 		<title>{pageTitle}</title>
 	</head>
 	<body>
-		<Header/>
+		<Header />
 		<h1>Astro</h1>
 		<h2>Mi Blog de mi sitio Astro.</h2>
-        <p>Aqui aprenderas varias cosas interesantes</p>
-        <ul>
-            <li><a href="/posts/post-1">Publicación 1</a></li>
-            <li><a href="/posts/post-2">Publicación 2</a></li>
-            <li><a href="/posts/post-3">Publicación 3</a></li>        
-        </ul>
-		<Footer/>
+		<p>Aqui aprenderas varias cosas interesantes</p>
+		<ul>
+			{
+				allPosts.map((post: any) => (
+					<li>
+						<a href={post.url}>{post.frontmatter.title}</a>
+					</li>
+				))
+			}
+		</ul>
+		<Footer />
 	</body>
 </html>
